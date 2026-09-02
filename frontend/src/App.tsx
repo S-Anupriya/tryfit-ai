@@ -1,45 +1,53 @@
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Sparkles } from "lucide-react";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Products from "./pages/Products";
+import TryOn from "./pages/TryOn";
+import Results from "./pages/Results";
+
 import "./App.css";
+
 function App() {
   return (
-    <div className="app">
-      <nav className="navbar">
-        <div className="logo">
-          TryFit AI
-        </div>
+    <BrowserRouter>
+      <div className="app">
 
-        <div className="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Explore</a>
-          <a href="#">Try-On</a>
-          <a href="#">Profile</a>
-        </div>
-      </nav>
+        {/* Navigation Bar */}
+        <nav className="navbar">
 
-      <main className="hero">
-        <div className="hero-content">
-          <p className="tagline">
-            AI-POWERED FASHION
-          </p>
+          <Link to="/" className="logo">
+            <Sparkles size={20} />
+            <span>TryFit AI</span>
+          </Link>
 
-          <h1>
-            See it.
-            <br />
-            Try it.
-            <br />
-            Wear it.
-          </h1>
+          <div className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/products">Explore</Link>
+            <Link to="/try-on">Try-On</Link>
+            <Link to="/profile">Profile</Link>
+          </div>
 
-          <p className="description">
-            Discover fashion, visualize your look with AI,
-            and make smarter clothing decisions before you buy.
-          </p>
+          <Link to="/login" className="login-button">
+            Login
+          </Link>
 
-          <button className="primary-button">
-            Start Virtual Try-On
-          </button>
-        </div>
-      </main>
-    </div>
+        </nav>
+
+        {/* Pages */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/try-on" element={<TryOn />} />
+          <Route path="/results" element={<Results />} />
+        </Routes>
+
+      </div>
+    </BrowserRouter>
   );
 }
 
