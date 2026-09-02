@@ -1,14 +1,12 @@
 /* Dark Cosmic Background & Page Container */
 /* Dark Cosmic Background with Galaxy Image */
-body {
+html, body, .app {
   background: 
     linear-gradient(rgba(10, 5, 20, 0.75), rgba(10, 5, 20, 0.75)),
-    url('https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Faesthetic-galaxy.html&ved=0CBYQjRxqFwoTCLjZl_CW0JYDFQAAAAAdAAAAABA3&opi=89978449') no-repeat center center fixed;
-  background-size: cover;
-  color: #f1f5f9;
+    url('PASTE_DIRECT_IMAGE_URL_HERE') no-repeat center center fixed !important;
+  background-size: cover !important;
   min-height: 100vh;
 }
-
 /* Apply cosmic background directly to the container */
 .profile-container {
   max-width: 900px;
