@@ -1,13 +1,12 @@
 /* ================================
-   Global Cosmic Theme Override
+   Global Cosmic Theme & Background
 ================================ */
 
 :root {
-  --cosmic-bg-dark: #090314;
   --cosmic-purple: #a855f7;
-  --cosmic-glow: rgba(168, 85, 247, 0.4);
-  --cosmic-card-bg: rgba(23, 15, 38, 0.65);
-  --cosmic-border: rgba(168, 85, 247, 0.25);
+  --cosmic-glow: rgba(168, 85, 247, 0.5);
+  --cosmic-card-bg: rgba(23, 15, 38, 0.6);
+  --cosmic-border: rgba(192, 132, 252, 0.25);
   --text-primary: #ffffff;
   --text-secondary: #cbd5e1;
   --text-accent: #c084fc;
@@ -16,12 +15,13 @@
 body {
   margin: 0;
   background: 
-    linear-gradient(rgba(9, 3, 20, 0.75), rgba(9, 3, 20, 0.75)),
+    linear-gradient(rgba(9, 3, 20, 0.8), rgba(9, 3, 20, 0.8)),
     url('https://images.unsplash.com/photo-1538370965046-79c0d6907d47?q=80&w=2000&auto=format&fit=crop') no-repeat center center fixed !important;
   background-size: cover !important;
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .app {
@@ -42,9 +42,9 @@ body {
   justify-content: space-between;
 
   border-bottom: 1px solid var(--cosmic-border) !important;
-  background: rgba(15, 10, 26, 0.8) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(15, 10, 26, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 
   position: sticky;
   top: 0;
@@ -66,7 +66,7 @@ body {
 
 .logo svg {
   color: var(--cosmic-purple);
-  filter: drop-shadow(0 0 8px var(--cosmic-purple));
+  filter: drop-shadow(0 0 10px var(--cosmic-purple));
 }
 
 .nav-links {
@@ -81,12 +81,12 @@ body {
   font-size: 14px;
   font-weight: 500;
 
-  transition: color 0.2s ease, text-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #ffffff !important;
-  text-shadow: 0 0 8px var(--cosmic-purple);
+  text-shadow: 0 0 10px var(--cosmic-purple);
 }
 
 .login-button {
@@ -94,26 +94,27 @@ body {
   color: white !important;
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%) !important;
 
-  padding: 11px 20px;
+  padding: 10px 22px;
   border-radius: 9999px;
 
   font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.5);
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-button:hover {
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
-  transform: translateY(-1px);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+  transform: translateY(-2px);
 }
 
 /* ================================
-   Hero Section
+   Hero Section & Sparkle Effects
 ================================ */
 
 .hero {
+  position: relative;
   min-height: calc(100vh - 76px);
   padding: 80px 8%;
 
@@ -123,19 +124,41 @@ body {
   gap: 80px;
 }
 
+/* Ambient Floating Glow Behind Hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .hero-content {
+  position: relative;
+  z-index: 1;
   max-width: 650px;
 }
 
 .eyebrow {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
+
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(192, 132, 252, 0.4);
 
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--text-accent) !important;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
 
   margin-bottom: 24px;
 }
@@ -144,21 +167,24 @@ body {
   margin: 0;
 
   font-size: clamp(64px, 7vw, 105px);
-  line-height: 0.88;
-  letter-spacing: -5px;
-  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -4px;
+  font-weight: 800;
   color: #ffffff !important;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 .hero h1 span {
-  color: rgba(255, 255, 255, 0.35) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(192, 132, 252, 0.2) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
 .hero-description {
   max-width: 570px;
 
-  margin-top: 36px;
-  margin-bottom: 32px;
+  margin-top: 32px;
+  margin-bottom: 36px;
 
   font-size: 17px;
   line-height: 1.7;
@@ -168,7 +194,7 @@ body {
 .hero-buttons {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .primary-button,
@@ -177,24 +203,24 @@ body {
   align-items: center;
   gap: 9px;
 
-  padding: 14px 24px;
+  padding: 14px 26px;
   border-radius: 12px;
 
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
 
-  transition: all 0.2s ease;
+  transition: all 0.25 ease;
 }
 
 .primary-button {
   color: white !important;
   background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%) !important;
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
 }
 
 .primary-button:hover {
-  box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.8);
   transform: translateY(-2px);
 }
 
@@ -202,19 +228,22 @@ body {
   color: #ffffff !important;
   background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid var(--cosmic-border) !important;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
 
 .secondary-button:hover {
-  background: rgba(168, 85, 247, 0.15) !important;
+  background: rgba(168, 85, 247, 0.18) !important;
   border-color: rgba(192, 132, 252, 0.6) !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
 /* ================================
-   AI Visual Card
+   AI Visual Glass Card
 ================================ */
 
 .hero-visual {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: center;
 }
@@ -224,19 +253,25 @@ body {
   min-height: 510px;
 
   background: var(--cosmic-card-bg) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 20px;
-  border: 1px solid var(--cosmic-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(192, 132, 252, 0.35);
 
-  padding: 24px;
+  padding: 28px;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4),
-              inset 0 0 12px 0 rgba(168, 85, 247, 0.1) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5),
+              0 0 30px 0 rgba(168, 85, 247, 0.2) !important;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.visual-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(192, 132, 252, 0.6);
 }
 
 .visual-top {
@@ -263,6 +298,7 @@ body {
 
 .fashion-placeholder svg {
   stroke: #c084fc !important;
+  filter: drop-shadow(0 0 12px var(--cosmic-purple));
 }
 
 .fashion-placeholder p {
@@ -304,146 +340,4 @@ body {
   color: #ffffff !important;
 }
 
-/* ================================
-   Features Section
-================================ */
-
-.features {
-  padding: 100px 8%;
-  background: transparent !important;
-  color: white;
-}
-
-.section-heading p {
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: var(--text-accent) !important;
-}
-
-.section-heading h2 {
-  max-width: 600px;
-
-  margin-top: 15px;
-
-  font-size: clamp(36px, 5vw, 60px);
-  line-height: 1;
-  letter-spacing: -2px;
-  color: #ffffff !important;
-}
-
-.feature-grid {
-  margin-top: 70px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px !important;
-
-  background: transparent !important;
-}
-
-.feature-card {
-  min-height: 230px;
-  padding: 35px;
-
-  background: var(--cosmic-card-bg) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  border: 1px solid var(--cosmic-border) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(192, 132, 252, 0.6) !important;
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3) !important;
-}
-
-.feature-card span {
-  font-size: 11px;
-  color: var(--text-accent) !important;
-}
-
-.feature-card h3 {
-  margin-top: 45px;
-  margin-bottom: 12px;
-
-  font-size: 25px;
-  color: #ffffff !important;
-}
-
-.feature-card p {
-  max-width: 280px;
-
-  color: var(--text-secondary) !important;
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-/* ================================
-   Responsive
-================================ */
-
-@media (max-width: 900px) {
-  .nav-links {
-    display: none;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 50px;
-    padding-top: 60px;
-  }
-
-  .hero h1 {
-    font-size: 70px;
-  }
-
-  .hero-visual {
-    justify-content: flex-start;
-  }
-
-  .feature-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 500px) {
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .login-button {
-    padding: 9px 14px;
-  }
-
-  .hero {
-    padding: 50px 20px;
-  }
-
-  .hero h1 {
-    font-size: 58px;
-    letter-spacing: -3px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .primary-button,
-  .secondary-button {
-    justify-content: center;
-  }
-
-  .visual-card {
-    min-height: 400px;
-  }
-
-  .features {
-    padding: 70px 20px;
-  }
-}
+/* Save to Git Command */
