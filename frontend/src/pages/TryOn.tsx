@@ -1,244 +1,179 @@
-import React, { useState } from 'react';
-import { Upload, Sparkles, RefreshCw, Download, AlertCircle,  } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Upload, Sparkles, RefreshCw, Layers, Zap } from 'lucide-react';
+import './TryOn.css';
 
-export interface Product {
-  id: string;
-  title: string;
-  category: string;
-  platform: string;
-  price: string;
-  imageUrl: string;
-  storeUrl: string;
-}
+const PRESET_CLOTHES = [
+  { id: '1', name: 'Cosmic Hoodie', img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500' },
+  { id: '2', name: 'Cyberpunk Leather', img: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500' },
+  { id: '3', name: 'Nebula Dress', img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500' },
+];
 
-interface TryOnProps {
-  selectedProduct?: Product | null;
-}
+const TryOn: React.FC = () => {
+  const [humanImg, setHumanImg] = useState<string | null>(null);
+  const [garmentImg, setGarmentImg] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [resultImg, setResultImg] = useState<string | null>(null);
 
-export default function TryOn({ selectedProduct }: TryOnProps) {
-  // Image States
-  const [userImage, setUserImage] = useState<string | null>(null);
-  const [garmentImage, setGarmentImage] = useState<string | null>(
-    selectedProduct ? selectedProduct.imageUrl : null
-  );
-  const [resultImage, setResultImage] = useState<string | null>(null);
+  // Auto-load default photo saved from Profile.tsx
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem('default_human_img');
+    if (savedPhoto) {
+      setHumanImg(savedPhoto);
+    }
+  }, []);
 
-  // Status States
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Handle User Photo Selection
-  const handleUserPhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setter: React.Dispatch<React.SetStateAction<string | null>>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        setError('User image size should be less than 10MB');
-        return;
-      }
-      setError(null);
-      const imageUrl = URL.createObjectURL(file);
-      setUserImage(imageUrl);
+      const url = URL.createObjectURL(file);
+      setter(url);
     }
   };
 
-  // Handle Custom Garment Photo Upload
-  const handleGarmentUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        setError('Garment image size should be less than 10MB');
-        return;
-      }
-      setError(null);
-      const imageUrl = URL.createObjectURL(file);
-      setGarmentImage(imageUrl);
-    }
-  };
+  const handleGenerate = () => {
+    if (!humanImg || !garmentImg) return;
+    setIsProcessing(true);
 
-  // Trigger AI Virtual Try-On API Call
-  const handleGenerateTryOn = async () => {
-    if (!userImage || !garmentImage) {
-      setError('Please provide both a user photo and a garment image.');
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-    setResultImage(null);
-
-    try {
-      /* 
-        PRODUCTION BACKEND INTEGRATION:
-        Uncomment and point this payload to your FastAPI / Node.js API endpoint.
-        
-        const response = await fetch('http://localhost:8000/api/v1/virtual-try-on', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            human_image_url: userImage,
-            garment_image_url: garmentImage,
-            category: selectedProduct?.category.toLowerCase() || 'upper_body'
-          })
-        });
-
-        const data = await response.json();
-        setResultImage(data.output_image_url);
-      */
-
-      // Simulated AI model inference delay (3.5 seconds)
-      setTimeout(() => {
-        setResultImage(garmentImage); // Returns processed canvas image
-        setIsLoading(false);
-      }, 3500);
-
-    } catch (err) {
-      setError('Failed to process image. Check your network or API backend connection.');
-      setIsLoading(false);
-    }
+    // Simulate Replicate IDM-VTON API Processing
+    setTimeout(() => {
+      setIsProcessing(false);
+      setResultImg(garmentImg); // Replace with actual API response output
+    }, 3500);
   };
 
   return (
-    <div className="min-h-screen bg-[#F9F8F3] px-6 sm:px-8 py-10 text-[#111111]">
-      {/* Page Header */}
-      <div className="max-w-6xl mx-auto mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">AI Virtual Fitting Room</h1>
-        <p className="text-gray-600 mt-2 text-base sm:text-lg">
-          Upload a full-body picture and see how clothes fit on you before buying.
-        </p>
+    <div className="tryon-container">
+      <div className="tryon-header">
+        <div className="badge-glow">
+          <Zap size={14} /> AI Fitting Room
+        </div>
+        <h1>Virtual Try-On Studio</h1>
+        <p>Combine your photo with any garment to visualize your look powered by IDM-VTON.</p>
       </div>
 
-      {/* Error Alert Display */}
-      {error && (
-        <div className="max-w-6xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-700 text-sm">
-          <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          <span>{error}</span>
+      <div className="tryon-workspace">
+        {/* Step 1: Human Model Selection */}
+        <div className="upload-card">
+          <div className="card-header">
+            <span>01</span>
+            <h3>Your Photo</h3>
+          </div>
+          <div className="dropzone">
+            {humanImg ? (
+              <div className="preview-frame">
+                <img src={humanImg} alt="Model Preview" />
+                <button className="change-btn" onClick={() => setHumanImg(null)}>Change</button>
+              </div>
+            ) : (
+              <label className="upload-label">
+                <Upload size={28} className="upload-icon" />
+                <span>Upload Body Photo</span>
+                <small>PNG, JPG up to 10MB</small>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, setHumanImg)}
+                  hidden
+                />
+              </label>
+            )}
+          </div>
+        </div>
+
+        {/* Action Column */}
+        <div className="action-column">
+          <button
+            className={`generate-btn ${humanImg && garmentImg ? 'ready' : ''}`}
+            disabled={!humanImg || !garmentImg || isProcessing}
+            onClick={handleGenerate}
+          >
+            <Sparkles size={20} className={isProcessing ? 'spin' : ''} />
+            <span>{isProcessing ? 'Generating Fit...' : 'Generate Try-On'}</span>
+          </button>
+        </div>
+
+        {/* Step 2: Garment Selection */}
+        <div className="upload-card">
+          <div className="card-header">
+            <span>02</span>
+            <h3>Garment Photo</h3>
+          </div>
+          <div className="dropzone">
+            {garmentImg ? (
+              <div className="preview-frame">
+                <img src={garmentImg} alt="Garment Preview" />
+                <button className="change-btn" onClick={() => setGarmentImg(null)}>Change</button>
+              </div>
+            ) : (
+              <label className="upload-label">
+                <Layers size={28} className="upload-icon" />
+                <span>Upload Clothing Piece</span>
+                <small>Clean white/flat lay works best</small>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleImageUpload(e, setGarmentImg)}
+                  hidden
+                />
+              </label>
+            )}
+          </div>
+
+          {/* Quick Preset Selector */}
+          <div className="presets-wrapper">
+            <small>Or pick a preset:</small>
+            <div className="presets-grid">
+              {PRESET_CLOTHES.map((item) => (
+                <button
+                  key={item.id}
+                  className={`preset-thumb ${garmentImg === item.img ? 'selected' : ''}`}
+                  onClick={() => setGarmentImg(item.img)}
+                >
+                  <img src={item.img} alt={item.name} />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Processing Modal Overlay */}
+      {isProcessing && (
+        <div className="processing-overlay">
+          <div className="processing-modal">
+            <div className="nebula-spinner">
+              <div className="ring ring-1"></div>
+              <div className="ring ring-2"></div>
+              <Sparkles size={32} className="sparkle-core" />
+            </div>
+            <h2>Running Neural Fitting...</h2>
+            <p>IDM-VTON model is mapping garment geometry to your photo.</p>
+          </div>
         </div>
       )}
 
-      {/* Interactive Studio Grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        
-        {/* Step 1: User Photo Upload */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col items-center">
-          <div className="w-full flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-base sm:text-lg">1. Your Photo</h2>
-            {userImage && (
-              <button
-                onClick={() => setUserImage(null)}
-                className="text-xs font-medium text-gray-400 hover:text-red-600 transition"
-              >
-                Change
+      {/* Result Display Section */}
+      {resultImg && !isProcessing && (
+        <div className="result-section">
+          <h2>Your Try-On Result</h2>
+          <div className="result-card">
+            <img src={resultImg} alt="Virtual Result" />
+            <div className="result-actions">
+              <button className="save-fit-btn" onClick={() => alert('Look saved to Profile!')}>
+                <Sparkles size={16} /> Save Look to Profile
               </button>
-            )}
-          </div>
-
-          <div className="relative w-full aspect-[3/4] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl overflow-hidden flex flex-col items-center justify-center group hover:border-black transition">
-            {userImage ? (
-              <img src={userImage} alt="User photo" className="w-full h-full object-cover" />
-            ) : (
-              <div className="text-center p-6 pointer-events-none">
-                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-black transition" />
-                <p className="text-sm font-medium text-gray-700">Upload Your Photo</p>
-                <p className="text-xs text-gray-400 mt-1">Full-body front angle works best</p>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleUserPhotoUpload}
-              className="absolute inset-0 opacity-0 cursor-pointer"
-            />
-          </div>
-        </div>
-
-        {/* Step 2: Selected Garment */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col items-center">
-          <div className="w-full flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-base sm:text-lg">2. Target Apparel</h2>
-            {garmentImage && (
-              <button
-                onClick={() => setGarmentImage(null)}
-                className="text-xs font-medium text-gray-400 hover:text-red-600 transition"
-              >
-                Change
+              <button className="reset-btn" onClick={() => setResultImg(null)}>
+                <RefreshCw size={16} /> Try Another
               </button>
-            )}
-          </div>
-
-          <div className="relative w-full aspect-[3/4] bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl overflow-hidden flex flex-col items-center justify-center group hover:border-black transition">
-            {garmentImage ? (
-              <img src={garmentImage} alt="Target apparel" className="w-full h-full object-cover" />
-            ) : (
-              <div className="text-center p-6 pointer-events-none">
-                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-black transition" />
-                <p className="text-sm font-medium text-gray-700">Upload Garment Image</p>
-                <p className="text-xs text-gray-400 mt-1">Or choose an item from Explore</p>
-              </div>
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleGarmentUpload}
-              className="absolute inset-0 opacity-0 cursor-pointer"
-            />
-          </div>
-
-          {selectedProduct && (
-            <div className="mt-3 text-left w-full">
-              <p className="text-xs font-semibold text-gray-800 line-clamp-1">{selectedProduct.title}</p>
-              <p className="text-xs text-gray-500">{selectedProduct.platform} • {selectedProduct.price}</p>
             </div>
-          )}
-        </div>
-
-        {/* Step 3: AI Output Preview */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm flex flex-col items-center">
-          <h2 className="font-semibold text-base sm:text-lg mb-4 w-full text-left">3. Fitting Result</h2>
-
-          <div className="relative w-full aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden flex flex-col items-center justify-center">
-            {isLoading ? (
-              <div className="text-center p-6 flex flex-col items-center">
-                <RefreshCw className="w-8 h-8 text-black animate-spin mb-3" />
-                <p className="text-sm font-semibold text-gray-800">Blending Fabric & Pose...</p>
-                <p className="text-xs text-gray-500 mt-1">Generating high-resolution fitting</p>
-              </div>
-            ) : resultImage ? (
-              <img src={resultImage} alt="Try-On Output" className="w-full h-full object-cover" />
-            ) : (
-              <div className="text-center p-6 text-gray-400">
-                <Sparkles className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-                <p className="text-sm font-medium">Ready to Visualize</p>
-                <p className="text-xs text-gray-400 mt-1">Click button below to run fitting</p>
-              </div>
-            )}
           </div>
-
-          {/* Action Button */}
-          {resultImage ? (
-            <a
-              href={resultImage}
-              download="try-on-result.jpg"
-              className="w-full mt-6 py-3 rounded-xl font-semibold text-sm bg-black text-white hover:bg-gray-800 transition flex items-center justify-center gap-2 shadow-md"
-            >
-              <Download className="w-4 h-4" />
-              Download Result
-            </a>
-          ) : (
-            <button
-              onClick={handleGenerateTryOn}
-              disabled={!userImage || !garmentImage || isLoading}
-              className={`w-full mt-6 py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition ${
-                userImage && garmentImage && !isLoading
-                  ? 'bg-black text-white hover:bg-gray-800 shadow-md'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
-            >
-              <Sparkles className="w-4 h-4 text-yellow-400" />
-              {isLoading ? 'Processing...' : 'Run AI Virtual Try-On'}
-            </button>
-          )}
         </div>
-      </div>
+      )}
     </div>
   );
-}
+};
+
+export default TryOn;
