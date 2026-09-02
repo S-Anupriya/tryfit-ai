@@ -1,3 +1,11 @@
+/* Dark Cosmic Background & Page Container */
+body {
+  background: radial-gradient(ellipse at top, #1a0b2e 0%, #090314 60%, #030108 100%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+  min-height: 100vh;
+}
+
 .profile-container {
   max-width: 900px;
   margin: 40px auto;
@@ -8,13 +16,21 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* Card Standard */
+/* Glassmorphism Cosmic Cards */
 .profile-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  background: rgba(23, 15, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4),
+              inset 0 0 12px 0 rgba(168, 85, 247, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.profile-card:hover {
+  border-color: rgba(168, 85, 247, 0.45);
 }
 
 /* Header Section */
@@ -32,8 +48,8 @@
 
 .avatar-wrapper {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 84px;
+  height: 84px;
 }
 
 .avatar {
@@ -41,42 +57,50 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #f1f5f9;
+  background: radial-gradient(circle, #2e1065 0%, #1e1b4b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid rgba(192, 132, 252, 0.5);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
 }
 
 .camera-btn {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #6366f1;
+  background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+  transition: transform 0.2s ease;
+}
+
+.camera-btn:hover {
+  transform: scale(1.1);
 }
 
 .user-details h1 {
   margin: 0;
-  font-size: 1.5rem;
-  color: #0f172a;
+  font-size: 1.75rem;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .user-details p {
   margin: 4px 0 0 0;
-  color: #64748b;
+  color: #c084fc;
   font-size: 0.95rem;
 }
 
-/* Photo Section */
+/* Section Titles & Headers */
 .photo-section-header {
   display: flex;
   justify-content: space-between;
@@ -85,113 +109,122 @@
 
 .photo-section-header h2, .section-title h2 {
   margin: 0;
-  font-size: 1.15rem;
-  color: #0f172a;
+  font-size: 1.25rem;
+  color: #ffffff;
 }
 
 .photo-section-header p {
-  margin: 4px 0 0 0;
-  font-size: 0.875rem;
-  color: #64748b;
+  margin: 6px 0 0 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
 }
 
-/* Buttons */
+/* Cosmic Buttons */
 .btn-primary {
-  background-color: #6366f1;
-  color: white;
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  color: #ffffff;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #4f46e5;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: white;
-  border: 1px solid #cbd5e1;
-  color: #334155;
-  padding: 8px 16px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  color: #e2e8f0;
+  padding: 8px 18px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #f8fafc;
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(192, 132, 252, 0.6);
+  color: #ffffff;
 }
 
 .btn-logout {
   background: transparent;
-  border: none;
-  color: #e11d48;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #fb7185;
   display: flex;
   align-items: center;
   gap: 8px;
   font-weight: 500;
   cursor: pointer;
   align-self: flex-end;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
 }
 
 .btn-logout:hover {
-  background-color: #ffe4e6;
+  background: rgba(244, 63, 94, 0.15);
+  border-color: rgba(244, 63, 94, 0.6);
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
 }
 
-/* Grid Gallery */
+/* Fits Gallery Grid */
 .section-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .fits-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .fit-card {
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: rgba(15, 10, 26, 0.6);
+  transition: all 0.3s ease;
 }
 
 .fit-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  border-color: rgba(192, 132, 252, 0.6);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
 .fit-card img {
   width: 100%;
-  height: 140px;
+  height: 150px;
   object-fit: cover;
 }
 
 .fit-card-info {
   padding: 12px;
-  background: white;
+  background: rgba(23, 15, 38, 0.8);
 }
 
 .fit-card-info p {
   margin: 0;
   font-weight: 600;
   font-size: 0.9rem;
-  color: #1e293b;
+  color: #f1f5f9;
 }
 
 .fit-card-info span {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #c084fc;
 }
