@@ -6,7 +6,7 @@
 
 The platform aims to bring fashion products from multiple e-commerce platforms into one place, allowing users to explore clothing, compare products and visualize how selected outfits may look on them using Artificial Intelligence.
 
-Instead of relying only on product images, users can upload their own photograph, select a clothing item and generate an AI-powered virtual try-on preview.
+Users can upload their photographs, select clothing items and generate AI-powered virtual try-on previews.
 
 TryFit AI aims to bridge the gap between traditional online shopping and the in-store shopping experience.
 
@@ -24,54 +24,52 @@ TryFit AI aims to address these challenges through AI-powered virtual try-on, pr
 
 ## 3. Project Objectives
 
-The main objectives of TryFit AI are:
-
-1. To develop a centralized fashion discovery platform.
-2. To integrate AI-powered virtual clothing try-on.
-3. To provide personalized fashion recommendations.
-4. To help users explore and compare products from different shopping platforms.
-5. To provide a user-friendly and interactive shopping experience.
-6. To reduce uncertainty when selecting clothing online.
+1. Develop a centralized fashion discovery platform.
+2. Integrate AI-powered virtual clothing try-on.
+3. Provide personalized fashion recommendations.
+4. Help users explore and compare products.
+5. Create a user-friendly online shopping experience.
+6. Reduce uncertainty when selecting clothing online.
 
 ## 4. Key Features
 
 ### 4.1 User Authentication
 - User registration and login.
 - Personalized user profiles.
-- Secure account management.
+- Account management.
 
 ### 4.2 Fashion Discovery
 - Browse clothing products.
-- Explore different fashion categories.
+- Explore fashion categories.
 - Search and filter products.
-- Sort products based on price and ratings.
+- Sort products by price and ratings.
 
 ### 4.3 AI Virtual Try-On
 - Upload a personal photograph.
 - Select a clothing product.
 - Generate an AI-powered outfit preview.
-- View the generated try-on result.
+- View the generated result.
 
 ### 4.4 Product Comparison
 - Explore similar products.
 - Compare prices and product information.
-- Access the original shopping platform through external product links.
+- Access original shopping websites through external links.
 
 ### 4.5 AI Fashion Recommendations
 - Personalized clothing suggestions.
 - Recommendations based on user preferences.
-- Assistance in discovering suitable fashion styles.
+- Fashion style discovery.
 
 ### 4.6 Wishlist
-- Save favourite fashion products.
-- Revisit selected products later.
+- Save favourite products.
+- Revisit saved products later.
 
 ## 5. Technology Stack
 
 | Component | Technology |
 |---|---|
 | Frontend | React.js, TypeScript |
-| Frontend Build Tool | Vite |
+| Build Tool | Vite |
 | Styling | CSS |
 | Backend | Python, FastAPI |
 | Database | MongoDB Atlas (planned) |
@@ -85,61 +83,50 @@ The main objectives of TryFit AI are:
 
 TryFit AI follows a frontend-backend architecture.
 
-**Frontend – React + TypeScript**
+- **Frontend:** Handles the user interface, product discovery, image uploads and user interactions.
+- **Backend:** Handles API requests, image processing workflows and communication with AI services.
+- **Database:** Planned for storing user information, fashion preferences and wishlist data.
+- **AI Engine:** Processes person and garment images to generate virtual try-on previews.
 
-Handles the user interface, product discovery, image uploads, user interactions and presentation of AI-generated results.
-
-**Backend – Python + FastAPI**
-
-Handles API requests, image processing workflows, backend operations and communication with AI services.
-
-**Database – MongoDB Atlas**
-
-Planned for storing user information, fashion preferences, product details and wishlist data.
-
-**AI Virtual Try-On Engine**
-
-Processes the user's photograph and selected garment image to generate a virtual clothing preview.
-
-### Basic Workflow
+### System Workflow
 
 ```text
-             USER
-               |
-               v
-       TRYFIT AI FRONTEND
-        (React + TypeScript)
-               |
-       -------------------
-       |        |        |
-       v        v        v
-    Explore   Profile  Virtual
-    Products           Try-On
-                         |
-                         v
-                  FASTAPI BACKEND
-                         |
-                         v
-                  AI TRY-ON ENGINE
-                         |
-                         v
-                  GENERATED IMAGE
-                         |
-                         v
-                  DISPLAY RESULT
+                 USER
+                   |
+                   v
+           TRYFIT AI FRONTEND
+           (React + TypeScript)
+                   |
+          ---------------------
+          |         |         |
+          v         v         v
+       Explore   Profile   Virtual
+       Products            Try-On
+                              |
+                              v
+                       FASTAPI BACKEND
+                              |
+                              v
+                       AI TRY-ON ENGINE
+                              |
+                              v
+                       GENERATED IMAGE
+                              |
+                              v
+                       DISPLAY RESULT
 ```
 
 ## 7. How the Platform Works
 
-1. The user opens the TryFit AI platform.
+1. The user opens TryFit AI.
 2. The user signs in or creates an account.
 3. The user explores available fashion products.
 4. The user selects a clothing item.
-5. The user uploads a suitable personal photograph.
-6. The backend sends the required images to the AI virtual try-on service.
+5. The user uploads a suitable photograph.
+6. The backend sends the images to the AI try-on service.
 7. The AI model generates a virtual outfit preview.
 8. The generated result is displayed to the user.
-9. The user can explore other products and visit the original shopping website to purchase an item.
+9. The user can explore other products and visit the original shopping website.
 
 ## 8. Project Structure
 
@@ -165,7 +152,7 @@ tryfit-ai/
 └── .gitignore
 ```
 
-*The structure above represents the main project organization; additional files and folders may be added during development.*
+*This is an overview of the main project structure. Additional files and folders may be present.*
 
 ## 9. Installation and Setup
 
@@ -183,7 +170,7 @@ git clone https://github.com/S-Anupriya/tryfit-ai.git
 cd tryfit-ai
 ```
 
-### Step 2: Set Up the Backend
+### Step 2: Backend Setup
 
 ```bash
 cd backend
@@ -192,9 +179,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Create a `.env` file inside the backend directory and add the required environment variables.
-
-Never upload API keys or secret credentials to GitHub.
+Configure the required environment variables in a `.env` file.
 
 Start the backend:
 
@@ -204,17 +189,13 @@ python3 -m uvicorn main:app --reload
 
 Backend URL:
 
-```text
-http://127.0.0.1:8000
-```
+`http://127.0.0.1:8000`
 
 API documentation:
 
-```text
-http://127.0.0.1:8000/docs
-```
+`http://127.0.0.1:8000/docs`
 
-### Step 3: Set Up the Frontend
+### Step 3: Frontend Setup
 
 Open a new terminal:
 
@@ -226,13 +207,11 @@ npm run dev
 
 Frontend URL:
 
-```text
-http://localhost:5173
-```
+`http://localhost:5173`
 
-## 10. Current Development Status
+## 10. Development Status
 
-TryFit AI is under active development.
+TryFit AI is currently under active development.
 
 | Module | Status |
 |---|---|
@@ -241,24 +220,24 @@ TryFit AI is under active development.
 | User authentication | Under development |
 | User profile | Under development |
 | FastAPI backend | Initial setup completed |
-| Image upload | Implemented in the try-on workflow |
+| Image upload | Implemented in try-on workflow |
 | AI virtual try-on | Integration under evaluation |
 | Product aggregation | Planned |
 | MongoDB integration | Planned |
-| Product recommendations | Planned |
+| AI recommendations | Planned |
 | Wishlist | Planned |
-| Deployment | Planned |
+| Cloud deployment | Planned |
 
 The product catalogue currently uses sample product data. Live e-commerce integrations and the final AI virtual try-on service are yet to be completed.
 
 ## 11. Future Enhancements
 
 - Integrate a reliable AI virtual try-on model.
-- Connect authorized product APIs and affiliate product feeds.
+- Connect authorized product APIs and affiliate feeds.
 - Implement personalized AI fashion recommendations.
-- Add advanced size recommendation features.
+- Add clothing size recommendation features.
 - Integrate price tracking and product alerts.
-- Complete MongoDB database integration.
+- Complete database integration.
 - Improve mobile responsiveness.
 - Deploy the complete application to cloud hosting.
 
@@ -268,7 +247,7 @@ The product catalogue currently uses sample product data. Live e-commerce integr
 - Helps users visualize clothing before purchasing.
 - Reduces the effort involved in comparing products.
 - Provides a centralized fashion discovery experience.
-- Combines web development with practical AI applications.
+- Combines Artificial Intelligence with web development.
 
 ## 13. License
 
@@ -281,13 +260,10 @@ Third-party libraries, AI models and services remain subject to their respective
 **Project Name:** TryFit AI  
 **Project Type:** AI-Based Web Application  
 **Domain:** Artificial Intelligence, Fashion Technology and Web Development  
-**Frontend:** React + TypeScript  
-**Backend:** Python + FastAPI  
 
 **GitHub Repository:**  
 https://github.com/S-Anupriya/tryfit-ai
 
 ---
 
-*TryFit AI – Explore Fashion. Experience AI. Find Your Fit.*git add README.md
-git add README.md
+**TryFit AI – Explore Fashion. Experience AI. Find Your Fit.**
